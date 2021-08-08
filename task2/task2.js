@@ -153,7 +153,11 @@ function generateChart() {
         dataLabels: {
           enabled: true,
           formatter: function () {
-            return Math.round((100 * this.y) / this.total) + '%';
+            if (this.y != 0) {
+              return Math.round((100 * this.y) / this.total) + '%';
+            } else {
+              return null;
+            }
           },
         },
       },
