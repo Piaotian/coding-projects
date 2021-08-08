@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enrollment Status of Sites</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="task2.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Enrollment Status of Sites</h1>
+      <div class="separator"></div>
+      <!-- User Input: Group Selector + Time Period  -->
+      <div class="input-container">
+        <!-- Group Selector -->
+        <div class="selector">
+          <label for="group">Group By</label>
+          <select
+            name="group"
+            id="group"
+            class="dropdown-selector"
+            onchange="handleGroup(this.value)"
+          >
+            <option value="cohort">Cohort</option>
+            <option value="age">Age</option>
+          </select>
+        </div>
+        <!-- Time Period -->
+        <div class="filter">
+          <p>Time Period</p>
+          <input type="date" id="startDate" name="startDate" class="time" />
+          <span class="time-seperator"></span>
+          <input type="date" id="endDate" name="endDate" class="time" />
+          <button onclick="handleFilter()">Filter</button>
+        </div>
+      </div>
+      <!-- Chart  -->
+      <div class="chart-container" id="chart"></div>
+    </div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="data.js"></script>
+    <script src="task2.js"></script>
+  </body>
+</html>
