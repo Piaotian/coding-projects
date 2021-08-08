@@ -1,0 +1,87 @@
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: max(10px, min(1.5vw, 14px));
+}
+
+.container {
+  width: 90%;
+  margin: auto;
+}
+
+.separator {
+  border: 1px solid #839199;
+  margin: 20px 0 40px 0;
+}
+
+.input-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.selector {
+  width: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dropdown-selector {
+  width: 60%;
+  height: 60%;
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.filter {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.time {
+  width: 30%;
+  height: 60%;
+  font-size: 1rem;
+  font-family: 'Open Sans', sans-serif;
+  padding-left: 0.3rem;
+}
+
+.time-seperator {
+  width: 1.5%;
+  border: 1px solid;
+}
+
+button {
+  width: 10%;
+  height: 60%;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: #114e72;
+  font-size: 1rem;
+}
+
+.chart-container {
+  width: 80%;
+  height: 400px;
+  margin: auto;
+  margin-top: 80px;
+}
+
+@media screen and (max-width: 800px) {
+  .input-container {
+    flex-direction: column;
+  }
+  .selector {
+    width: 100%;
+    margin-bottom: 30px;
+    justify-content: unset;
+    gap: 1rem;
+  }
+  .filter {
+    width: 100%;
+  }
+}
