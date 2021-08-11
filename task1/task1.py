@@ -14,8 +14,8 @@ def main():
     Download csv from dropbox, then anonymize date of consent and add age, finally upload csv to dropbox
     """
     df = downloadData("/recruitment_project/enroll_data.csv")
-    offset_df = anonyDate(df)
     addAge(df)
+    offset_df = anonyDate(df)
     uploadData(offset_df, "/recruitment_project/enroll_data_offset_PJ.csv", dropbox.files.WriteMode.overwrite, False)
     uploadData(df, "/recruitment_project/enroll_data_anon_PJ.csv", dropbox.files.WriteMode.overwrite, True)
 
@@ -92,20 +92,23 @@ def addAge(df):
     Replace birth date column to age
     """
     for index, row in df.iterrows():
-        year = int(row["birth date"][0:4])
-        month = int(row["birth date"][5:7])
-        day = int(row["birth date"][8:])
-        row["birth date"] = calculateAge(datetime.datetime(year, month, day))
+        birthYear = int(row["birth date"][0:4])
+        birthMonth = int(row["birth date"][5:7])
+        birthDay = int(row["birth date"][8:])
+        dateOfConsent = row["date of consent"].split("/")
+        dateOfConsentYear = int(dateOfConsent[2])
+        dateOfConsentMonth = int(dateOfConsent[0])
+        dateOfConsentDay = int(dateOfConsent[1])
+        row["birth date"] = calculateAge(datetime.datetime(birthYear, birthMonth, birthDay), datetime.datetime(dateOfConsentYear, dateOfConsentMonth, dateOfConsentDay))
     df.rename(columns = {"birth date": "age"}, inplace = True)
 
 
-def calculateAge(birthDate):
+def calculateAge(birthDate, endDate):
     """Calculate age
     
-    Calculate age based on birthDate, then return age
+    Calculate age at endDate, then return age
     """
-    today = datetime.date.today()
-    age = today.year - birthDate.year - ((today.month, today.day) < (birthDate.month, birthDate.day))
+    age = endDate.year - birthDate.year - ((endDate.month, endDate.day) < (birthDate.month, birthDate.day))
     return age
 
 

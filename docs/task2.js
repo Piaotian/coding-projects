@@ -6,16 +6,6 @@ const chartData = {};
 const startDateInput = document.querySelector('#startDate');
 const endDateInput = document.querySelector('#endDate');
 
-// Set end date input can't earlier than start date input
-startDateInput.addEventListener('change', (e) => {
-  endDateInput.min = e.target.value;
-});
-
-// Set start date input can't later than end date input
-endDateInput.addEventListener('change', (e) => {
-  startDateInput.max = e.target.value;
-});
-
 // Initialize data
 function initializeData() {
   const siteSet = new Set();
@@ -24,8 +14,10 @@ function initializeData() {
   // Calculate age and add to data
   data.forEach((record) => {
     siteSet.add(record['site ID']);
-    record['date of consent'] = new Date(record['date of consent']);
-    record['age'] = calculateAge(record['birth date']);
+    const dateOfConsent = new Date(record['date of consent']);
+    record['date of consent'] = dateOfConsent;
+    const birthDate = new Date(record['birth date'].replace(/-/g, '/'));
+    record['age'] = calculateAge(birthDate, dateOfConsent);
   });
   sites = Array.from(siteSet);
   sites.forEach((site) => {
@@ -33,12 +25,11 @@ function initializeData() {
   });
 }
 
-// Calculate age based on birth date and today's date
-function calculateAge(dateString) {
-  const birthDate = new Date(dateString);
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+// Calculate age based on birth date and the date of consent
+function calculateAge(birthDate, dateOfConsent) {
+  let age = dateOfConsent.getFullYear() - birthDate.getFullYear();
+  const m = dateOfConsent.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && dateOfConsent.getDate() < birthDate.getDate())) {
     age--;
   }
   return age;

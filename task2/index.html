@@ -33,9 +33,23 @@
         <!-- Time Period -->
         <div class="filter">
           <p>Time Period</p>
-          <input type="date" id="startDate" name="startDate" class="time" />
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            class="time"
+            min="2020-01-01"
+            max="2020-12-31"
+          />
           <span class="time-seperator"></span>
-          <input type="date" id="endDate" name="endDate" class="time" />
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            class="time"
+            min="2020-01-01"
+            max="2020-12-31"
+          />
           <button onclick="handleFilter()">Filter</button>
         </div>
       </div>
